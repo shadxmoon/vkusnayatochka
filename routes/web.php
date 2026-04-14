@@ -20,10 +20,10 @@ Route::get('/products/create',[ProductController::class, 'create'])
 Route::post('/products',[ProductController::class,'store'])
             ->name('products.store');
 
-Route::get('/products/{product}',[ProductController::class,'show'])
+Route::get('/products/{product:slug}',[ProductController::class,'show'])
             ->name('products.show');
 
-Route::get('/products/{product}/edit',[ProductController::class,'edit'])
+Route::get('/products/{product:slug}/edit',[ProductController::class,'edit'])
             ->name('products.edit');
 
 Route::put('/products/{product}',[ProductController::class, 'update'])
