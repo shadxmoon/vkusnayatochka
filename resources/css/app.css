@@ -13,3 +13,6 @@
 .header-link:hover{
     color: rgb(255, 197, 90);
 }
+.picture-bg{
+    z-index: -1;
+}

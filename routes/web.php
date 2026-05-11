@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
@@ -33,7 +34,12 @@ Route::put('/products/{product}',[ProductController::class, 'update'])
 Route::delete('/products/{product}',[ProductController::class,'destroy'])
             ->name('products.destroy');
 
+Route::get('/categories', [CategoryController::class, 'index'])
+    ->name('categories.index');
 
+// 2. Страница товаров конкретной категории 
+Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])
+    ->name('categories.show');
 
 Route::get('/orders/show',[OrderController::class, 'show'])
         ->name('orders.show');

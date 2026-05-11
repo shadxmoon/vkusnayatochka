@@ -5,7 +5,7 @@
     <div>
         <nav>
             <ul class="flex flex-row gap-4">
-                <li><a href="{{route('products.index')}}" class="header-link">Главная</a></li>
+                <li><a href="/" class="header-link">Главная</a></li>
                 <li><a href="{{route('products.index')}}" class="header-link">Каталог</a></li>
                 <li><a href="" class="header-link">Контакты</a></li>
             </ul>
