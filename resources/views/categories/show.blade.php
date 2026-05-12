@@ -1,4 +1,8 @@
-<x-main-layout>
+<x-main-layout
+    title="{{$category->page_title}}"
+    description="{{$category->page_description}}"
+    keywords="{{$category->keywords}}"
+>
         <div class="container mx-auto">
             <h2 class="text-zinc-300 text-xl">{{ $category->title }}</h2>
             <ul class="relative mt-5 grid grid-cols-4 gap-5 tablet-md:grid-cols-3 tablet:grid-cols-2 mobile:grid-cols-1 mobile:gap-[14px] pb-1.5 desktop:pb-8 tablet:pb-4">
@@ -8,7 +12,7 @@
                         <p class="text-center">{{$product->title}}</p>
                         <div class="flex flex-row justify-between items-center">
                             <p class="font-bold">от {{$product->price}} &#8381;</p>
-                            <a class="bg-amber-400/70 rounded-lg p-2 cursor-pointer" href="{{ route('products.show', ['product'=>$product->slug]) }}">Просмотреть</a>
+                            <a class="bg-amber-400/80 rounded-lg px-4 py-2 cursor-pointer text-center hover:bg-amber-500 transition 0.3 ease-in-out" href="{{ route('products.show', ['product'=>$product->slug]) }}">Просмотреть</a>
                         </div>
                     </li>
                 @endforeach

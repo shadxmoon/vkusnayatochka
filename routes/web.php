@@ -5,11 +5,10 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\MainPageController;
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [MainPageController::class, 'index'])
+        ->name('welcome');
 
 Route::get('/products',[ProductController::class, 'index'])
             ->name('products.index');

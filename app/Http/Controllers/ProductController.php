@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Product;
 use GuzzleHttp\Handler\Proxy;
 use Illuminate\Http\Request;
+use App\Models\Sales;
 
 class ProductController extends Controller
 {
@@ -18,6 +19,8 @@ class ProductController extends Controller
                         ->get();
         
         return view('products.index', compact('products','categories'));
+
+        $sales = Sales::all();
     }
     public function create()
     {

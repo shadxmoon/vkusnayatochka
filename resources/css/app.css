@@ -12,7 +12,12 @@
 }
 .header-link:hover{
     color: rgb(255, 197, 90);
+    background-color:oklch(37% 0.013 285.805);
 }
-.picture-bg{
-    z-index: -1;
+.header-link{
+    padding: 5px 10px;
+    border-radius: 8px;
+}
+.bg-image{
+    z-index: -10;
 }

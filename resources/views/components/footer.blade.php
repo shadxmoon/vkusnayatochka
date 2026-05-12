@@ -1,5 +1,5 @@
-<footer class="bg-zinc-800 w-full flex justify-between px-45 py-7 mt-45">
-    <div class="flex flex-col items-center">
+<footer class="bg-zinc-800 w-full flex justify-between px-45 py-7 mt-45 bottom-0">
+    <div class="flex flex-col">
         <p class="text-zinc-400">Категории товаров</p>
         <ul>
             @foreach($categories as $category)

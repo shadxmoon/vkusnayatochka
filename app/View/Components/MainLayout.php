@@ -8,9 +8,9 @@ use Illuminate\View\View;
 class MainLayout extends Component
 {
     public function __construct(
-        public string $title = 'Интернет-магазин',
-        public string $description = 'Интернет-магазин для продажи мебели',
-        public string $keywords = 'интернет-магазин, мебель, мебель в челябинске, стол, стул, шкаф, кровать, диван, кухня, мебель для дачи, кухонная мебель, мебель в квартиру, ремонт, высококачественная мебель, импортная мебель, лучшая мебель, красивая мебель'
+        public string $title = 'Вкусно и точка Онлайн',
+        public string $description = 'Интернет-магазин доставки еды в Челябинске, Вкусно и Точка',
+        public string $keywords = 'интернет магазин, вкусно и точка, макдональдс, бургеры, роллы, пища, еда, фастфуд, заказать еду, доставка еды, питание, челябинск доставка'
     )
     {}
     public function render(): View
