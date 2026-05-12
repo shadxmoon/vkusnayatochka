@@ -36,12 +36,14 @@ Route::delete('/products/{product}',[ProductController::class,'destroy'])
 Route::get('/categories', [CategoryController::class, 'index'])
     ->name('categories.index');
 
-// 2. Страница товаров конкретной категории 
 Route::get('/categories/{category:slug}', [CategoryController::class, 'show'])
     ->name('categories.show');
 
 Route::get('/orders/show',[OrderController::class, 'show'])
         ->name('orders.show');
+        
+Route::post('/orders/add-item', [OrderController::class, 'addItem'])
+        ->name('orders.add-item');
 
 Route::get('/dashboard', function () {
     return view('dashboard');

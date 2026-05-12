@@ -23,15 +23,18 @@
                         </svg>
                     </div>
                     <div class="flex flex-row gap-4">
-                    <a class="bg-amber-400/80 rounded-lg px-4 py-2 cursor-pointer w-full text-center hover:bg-amber-500 transition 0.3 ease-in-out">
-                        Заказать
-                    </a>
-                    <a class="bg-amber-400/80 rounded-lg px-4 py-2 cursor-pointer w-full text-center hover:bg-amber-500 transition 0.3 ease-in-out">
-                        В корзину
-                    </a>
+                        <a class="bg-amber-400/80 rounded-lg px-4 py-2 cursor-pointer w-full text-center hover:bg-amber-500 transition 0.3 ease-in-out">
+                            Заказать
+                        </a>
+                        <form action="{{ route('orders.add-item')}}" method="POST" id="addToCartForm" class="visibility-hidden w-full">
+                            @csrf
+                            <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}"> 
+                            <input type="submit" value="В корзину" class="w-full bg-amber-400/80 rounded-lg px-4 py-2 cursor-pointer hover:bg-amber-500 transition 0.3 ease-in-out">
+                        </form>
+                    
+                    </div>
                 </div>
-                  </div>
-                </div>
+            </div>
                 <div>
                     <div class="bg-zinc-300 px-4 py-2 text-zinc-600 rounded-sm mb-2">Описание</div>
                     @if (empty($product->description))
