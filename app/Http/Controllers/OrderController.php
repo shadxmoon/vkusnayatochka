@@ -5,25 +5,39 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use App\Models\Product;
+use Illuminate\Support\Facades\Session;
 
 class OrderController extends Controller
 {
     public function show()
-    {
-        $order = Order::inRandomOrder()->first();
-        return view('orders.show', compact('order'));
+{
+    $cart = Session::get('cart', []);
+
+    $productIds = array_column($cart, 'product_id');
+
+    $products = Product::whereIn('id', $productIds)->get()->keyBy('id');
+
+    $items = [];
+    foreach ($cart as $i => $item) {
+        $product = $products[$item['product_id']] ?? null;
+        if ($product) {
+            $items[] = [
+                'index' => $i,
+                'product' => $product,
+            ];
+        }
     }
 
-    public function addItem(Request $request){
+    return view('orders.basket', compact('items'));
+}
+
+    public function addItem(Request $request)
+    {
         $request->validate([
             'product_id' => ['required', 'exists:products,id'],
         ]);
 
-        $product = Product::where('product_id', '=', $request->product_id)->first();
-
-        if(!$product){
-            abort(403);
-        }
+        $product = Product::find($request->product_id);
 
         $orderItems = [];
 
@@ -31,7 +45,9 @@ class OrderController extends Controller
             $orderItems = Session::get('cart', []);
         }
 
-        array_push($orderItems, ['product_id' => $request->product_id ]);
+        array_push($orderItems, [
+            'product_id' => $request->product_id
+        ]);
 
         Session::put('cart', $orderItems);
 
@@ -42,8 +58,36 @@ class OrderController extends Controller
             $count = 1;
         }
 
-        Session::put('count');
+        Session::put('count', $count);
 
-        return redirect()->back();
+        return response()->json([
+            'count' => $count,
+        ]);
+    }
+
+    public function removeItem(Request $request)
+    {
+        $request->validate([
+            'index' => ['required', 'integer'],
+        ]);
+
+        $index = $request->input('index');
+
+        $cart = Session::get('cart', []);
+
+        if (!array_key_exists($index, $cart)) {
+            return response()->json(['error' => 'Товар не найден'], 404);
+        }
+
+        array_splice($cart, $index, 1);
+
+        Session::put('cart', $cart);
+        $count = max(0, Session::get('count', 0) - 1);
+        Session::put('count', $count);
+
+        return response()->json([
+            'count' => $count,
+            'index' => $index,
+        ]);
     }
 }

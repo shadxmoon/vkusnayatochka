@@ -26,14 +26,36 @@
         </form>
     </div>
     <div>
-        <a href="" class="cursor-pointer">
-            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-basket2-fill hover:scale-110 0.2s ease-in-out" viewBox="0 0 16 16">
+        <a href="{{ route('orders.show') }}" class="cursor-pointer flex flex-row relative">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="relative bi bi-basket2-fill hover:scale-110 0.2s ease-in-out" viewBox="0 0 16 16">
             <path d="M5.929 1.757a.5.5 0 1 0-.858-.514L2.217 6H.5a.5.5 0 0 0-.5.5v1a.5.5 0 0 0 .5.5h.623l1.844 6.456A.75.75 0 0 0 3.69 15h8.622a.75.75 0 0 0 .722-.544L14.877 8h.623a.5.5 0 0 0 .5-.5v-1a.5.5 0 0 0-.5-.5h-1.717L10.93 1.243a.5.5 0 1 0-.858.514L12.617 6H3.383zM4 10a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 1 1-2 0zm4-1a1 1 0 0 1 1 1v2a1 1 0 1 1-2 0v-2a1 1 0 0 1 1-1"/>
             </svg>
-            <div class="basket-count {{ session()->has('count') && session('count') != 0 ? '' : 'invisible' }}" id="basket-count">
+            <div class="basket-count {{ session()->has('count') && session('count') != 0 ? '' : 'invisible' }} absolute bottom-[10px] left-[20px] bg-amber-400 px-1 py-0.25 text-md rounded-full text-white font-bold" id="basket-count">
                 {{ session('count') }}
             </div>
         </a>
         
     </div>
+    <div>
+        <button id="theme-toggle" class="bg-zinc-500 rounded-md cursor-pointer" type="button">
+            @if(request()->cookie('theme') === 'dark')
+                светлая тема
+            @else
+                темная тема
+            @endif
+        </button>
+    </div>
 </header>
+<script>
+        document.getElementById('theme-toggle').addEventListener('click', function() {
+            fetch(" {{ route('theme.toggle') }}", {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => response.ok ? location.reload() : alert("Ошибка!"))
+            .catch(error => console.error(error))
+        });
+</script>

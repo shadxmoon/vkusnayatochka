@@ -46,3 +46,34 @@
             </div>
         </div>
 </x-main-layout>
+
+<script>
+    document.addEventListener("DOMContentLoaded", ()=>{
+        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        const addToCartForm = document.getElementById('addToCartForm');
+
+        addToCartForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            fetch('/orders/add-item', {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': token,
+                    'Accept': 'application/json'
+                },
+                body: JSON.stringify({
+                    product_id: document.getElementById('product_id').value,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(document.getElementById('basket-count').classList.contains('invisible')){
+                    document.getElementById('basket-count').classList.remove('invisible')
+                }
+                document.getElementById('basket-count').textContent = data.count
+            })
+            .catch(error => console.error('Error:', error));
+        })
+    });
+</script>

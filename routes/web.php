@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\MainPageController;
+use App\Http\Controllers\ThemeController;
 
 Route::get('/', [MainPageController::class, 'index'])
         ->name('welcome');
@@ -45,9 +46,22 @@ Route::get('/orders/show',[OrderController::class, 'show'])
 Route::post('/orders/add-item', [OrderController::class, 'addItem'])
         ->name('orders.add-item');
 
+Route::post('/orders/remove-item', [OrderController::class, 'removeItem'])
+    ->name('orders.remove-item');
+
+Route::get('/clean-session', function(){
+    session()->flush();
+    return redirect()->back();
+});
+
+Route::get('/basket', [OrderController::class, 'show'])
+        ->name('orders.basket');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::post('/theme/toggle', [ThemeController::class, 'toggle'])->name('theme.toggle');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
